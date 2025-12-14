@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout/Layout';
-import { Card, CardContent } from '@/components/UI/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Camera } from 'lucide-react';
 
 // Import all property images

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Phone, MessageCircle, Mail, MapPin, Clock, Send } from 'lucide-react';
-import { Button } from '@/components/UI/button';
-import { Card, CardContent } from '@/components/UI/card';
-import { Input } from '@/components/UI/input';
-import { Label } from '@/components/UI/label';
-import { Textarea } from '@/components/UI/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/UI/select';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Layout from '@/components/Layout/Layout';
 
 export default function Contacto() {

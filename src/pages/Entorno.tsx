@@ -1,6 +1,6 @@
 import { Mountain, Camera, TreePine, Compass, Castle, Waves, Wine, MapPin } from 'lucide-react';
-import { Card, CardContent } from '@/components/UI/card';
-import { Button } from '@/components/UI/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Layout from '@/components/Layout/Layout';
 
 export default function Entorno() {

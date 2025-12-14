@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
-import { Button } from '@/components/UI/button';
+import { Button } from '@/components/ui/button';
 import logo from '@/assets/logo-la-moneria.png';
 
 const navigation = [

@@ -1,6 +1,6 @@
 import { Phone, MessageCircle, Users, Bed, MapPin, Star, Calendar, Euro } from 'lucide-react';
-import { Button } from '@/components/UI/button';
-import { Card, CardContent } from '@/components/UI/card';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import heroImage from '@/assets/hero-image.jpg';
 
 export default function Home() {

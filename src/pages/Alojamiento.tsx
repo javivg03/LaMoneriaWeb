@@ -1,6 +1,6 @@
 import { Phone, MessageCircle, Users, Bed, Bath, Car, Wifi, Utensils, Home as HomeIcon, Star } from 'lucide-react';
-import { Button } from '@/components/UI/button';
-import { Card, CardContent } from '@/components/UI/card';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import Layout from '@/components/Layout/Layout';
 
 export default function Alojamiento() {

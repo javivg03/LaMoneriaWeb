@@ -5,6 +5,12 @@
 /* Design system for La Monería - Natural, warm rural Spanish aesthetic */
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system for La Monería - Natural, warm rural Spanish aesthetic */
+
 @layer base {
   :root {
     /* Warm earth tones palette inspired by stone, chestnut wood, and clay tiles */

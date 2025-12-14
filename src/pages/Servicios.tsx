@@ -1,5 +1,5 @@
 import { Flame, Snowflake, Utensils, Bed, Wifi, Waves, TreePine, Users, Wrench } from 'lucide-react';
-import { Card, CardContent } from '@/components/UI/card';
+import { Card, CardContent } from '@/components/ui/card';
 import Layout from '@/components/Layout/Layout';
 
 export default function Servicios() {
