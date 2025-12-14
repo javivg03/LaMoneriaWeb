@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system for La Monería - Natural, warm rural Spanish aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Warm earth tones palette inspired by stone, chestnut wood, and clay tiles */
+    --background: 35 15% 97%;
+    --foreground: 25 25% 15%;
+
+    --card: 40 25% 95%;
+    --card-foreground: 25 25% 15%;
+
+    --popover: 40 25% 95%;
+    --popover-foreground: 25 25% 15%;
+
+    /* Warm terracotta primary inspired by Spanish clay tiles */
+    --primary: 15 65% 55%;
+    --primary-foreground: 40 25% 95%;
+    --primary-glow: 15 80% 65%;
+
+    /* Warm stone secondary */
+    --secondary: 35 20% 85%;
+    --secondary-foreground: 25 30% 25%;
+
+    /* Soft muted tones */
+    --muted: 35 15% 90%;
+    --muted-foreground: 25 15% 45%;
+
+    /* Pine green accent */
+    --accent: 140 30% 35%;
+    --accent-foreground: 40 25% 95%;
+    --accent-light: 140 25% 85%;
+
+    /* Ochre warm tone */
+    --ochre: 45 70% 50%;
+    --ochre-foreground: 25 25% 15%;
+    --ochre-light: 45 50% 90%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 40 25% 95%;
+
+    --border: 35 20% 85%;
+    --input: 35 20% 85%;
+    --ring: 15 65% 55%;
+
+    --radius: 0.5rem;
+
+    /* Beautiful gradients for rural atmosphere */
+    --gradient-warm: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--ochre)) 100%);
+    --gradient-earth: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary) / 0.9) 0%, hsl(var(--accent) / 0.8) 100%);
+    
+    /* Elegant shadows with warm tones */
+    --shadow-warm: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    --shadow-button: 0 4px 12px -2px hsl(var(--primary) / 0.3);
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease-out;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  /* Smooth scrolling for better UX */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Hero button variant for call-to-action */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground;
+    @apply px-8 py-4 rounded-lg font-semibold tracking-wide;
+    @apply shadow-[var(--shadow-button)] hover:shadow-[var(--shadow-warm)];
+    @apply transform hover:scale-105 transition-[var(--transition-smooth)];
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  /* Elegant card component */
+  .card-elegant {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50;
+    @apply rounded-xl shadow-[var(--shadow-card)];
+    @apply transition-[var(--transition-smooth)] hover:shadow-[var(--shadow-warm)];
+  }
+
+  /* Section with warm background */
+  .section-warm {
+    @apply bg-gradient-to-b from-background to-muted/30;
+  }
+
+  /* Text with warm accent */
+  .text-accent-warm {
+    @apply text-accent font-medium;
+  }
+}
