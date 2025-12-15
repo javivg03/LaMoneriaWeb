@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import FloatingCallButton from '../UI/FloatingCallButton';
+import FloatingCallButton from '../ui/FloatingCallButton';
 import SEO from '../SEO';
 
 interface LayoutProps {
