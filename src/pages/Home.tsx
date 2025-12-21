@@ -100,7 +100,7 @@ export default function Home() {
                   tradicionales de la zona: muros de piedra, madera de castaño y tejas de barro.
                 </p>
                 <p className="text-muted-foreground mb-6">
-                  Ubicada en la Aldea Las Delgadas, junto a las famosas Minas de Riotinto,
+                  Ubicada en la Aldea Las Delgadas (Zalamea la Real), junto a las famosas Minas de Riotinto,
                   ofrece acceso privilegiado a uno de los paisajes más singulares del mundo,
                   estudiado por la NASA como análogo terrestre de Marte.
                 </p>

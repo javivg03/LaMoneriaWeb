@@ -4,7 +4,7 @@ import { MapPin, Car, Plane, Train, Navigation } from 'lucide-react';
 
 export default function ComoLlegar() {
   return (
-    <Layout 
+    <Layout
       title="Cómo llegar - Vivienda Rural La Monería | Ubicación y acceso"
       description="Encuentra La Monería en Minas de Riotinto, Huelva. Indicaciones desde Sevilla, Huelva y principales aeropuertos."
     >
@@ -16,7 +16,7 @@ export default function ComoLlegar() {
               Cómo llegar
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Ubicados en la Aldea Las Delgadas, Minas de Riotinto (Huelva)
+              Ubicados en la Aldea Las Delgadas (Zalamea la Real), junto a Minas de Riotinto (Huelva)
             </p>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default function ComoLlegar() {
                 <address className="not-italic text-lg text-muted-foreground">
                   <p>Avda. de Andalucía, 19</p>
                   <p>Aldea Las Delgadas</p>
-                  <p>21660 Minas de Riotinto (Huelva)</p>
+                  <p>21640 Zalamea la Real (Huelva)</p>
                 </address>
                 <a
                   href="https://maps.google.com/?q=Avda+de+Andalucia+19+Las+Delgadas+Minas+de+Riotinto+Huelva"
@@ -118,18 +118,17 @@ export default function ComoLlegar() {
               <Card className="card-elegant">
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
-                    <Train className="h-8 w-8 text-primary mt-1" />
+                    <Car className="h-8 w-8 text-primary mt-1" />
                     <div>
                       <h3 className="font-serif text-xl font-semibold mb-3 text-foreground">
-                        Estación de tren (Sevilla)
+                        Recomendación de llegada
                       </h3>
-                      <p className="text-muted-foreground mb-2">
-                        La estación de Santa Justa en Sevilla tiene conexiones AVE con Madrid y otras ciudades.
+                      <p className="text-muted-foreground mb-4">
+                        La mejor forma de llegar a La Monería es en vehículo propio o de alquiler. La zona no cuenta con transporte público directo a la aldea.
                       </p>
                       <p className="text-muted-foreground">
-                        Desde allí se puede alquilar un coche o combinar con transporte local.
+                        Esto te permitirá además moverte con libertad por toda la comarca de la Cuenca Minera y la Sierra de Aracena.
                       </p>
-                      <p className="text-sm text-accent mt-3">Tiempo aproximado: 1h 15min en coche</p>
                     </div>
                   </div>
                 </CardContent>
@@ -148,15 +147,15 @@ export default function ComoLlegar() {
             </h2>
             <div className="text-muted-foreground space-y-4">
               <p>
-                <strong className="text-foreground">Vehículo propio recomendado:</strong> Aunque la zona está bien comunicada, 
-                disponer de coche propio facilita explorar los numerosos puntos de interés de la comarca.
+                <strong className="text-foreground">Vehículo propio necesario:</strong> La aldea no cuenta con transporte público.
+                Es indispensable disponer de coche propio para llegar y para explorar los numerosos puntos de interés de la comarca.
               </p>
               <p>
-                <strong className="text-foreground">GPS actualizado:</strong> Asegúrate de que tu navegador tenga 
+                <strong className="text-foreground">GPS actualizado:</strong> Asegúrate de que tu navegador tenga
                 la dirección exacta: Avda. de Andalucía, 19, Las Delgadas, Minas de Riotinto.
               </p>
               <p>
-                <strong className="text-foreground">Llegada:</strong> Te enviaremos indicaciones detalladas 
+                <strong className="text-foreground">Llegada:</strong> Te enviaremos indicaciones detalladas
                 por WhatsApp una vez confirmada tu reserva.
               </p>
             </div>

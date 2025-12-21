@@ -204,36 +204,51 @@ export default function Galeria() {
 
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 hidden md:block"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 z-[110]"
+            aria-label="Anterior"
           >
-            <ChevronLeft className="h-12 w-12" />
+            <ChevronLeft className="h-10 w-10 md:h-12 md:w-12" />
           </button>
 
-          <div className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center">
+          <div className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center p-4">
             <img
               src={galleryImages[selectedIndex].src}
               alt={galleryImages[selectedIndex].alt}
-              className="max-h-[80vh] max-w-full object-contain shadow-2xl animate-in zoom-in-95 duration-300"
+              className="max-h-[70vh] md:max-h-[80vh] w-auto animate-in zoom-in-95 duration-300"
             />
             <div className="mt-6 text-center text-white">
-              <h3 className="font-serif text-2xl font-semibold mb-1">
+              <h3 className="font-serif text-xl md:text-2xl font-semibold mb-1">
                 {galleryImages[selectedIndex].alt}
               </h3>
-              <p className="text-white/60 uppercase tracking-widest text-sm font-medium">
+              <p className="text-white/60 uppercase tracking-widest text-xs md:text-sm font-medium">
                 {galleryImages[selectedIndex].category}
               </p>
-              <div className="mt-4 flex gap-4 md:hidden">
-                <button onClick={handlePrev} className="p-2 bg-white/10 rounded-full"><ChevronLeft className="h-6 w-6" /></button>
-                <button onClick={handleNext} className="p-2 bg-white/10 rounded-full"><ChevronRight className="h-6 w-6" /></button>
+              {/* Mobile controls */}
+              <div className="mt-6 flex gap-12 md:hidden">
+                <button
+                  onClick={handlePrev}
+                  className="p-4 bg-white/10 rounded-full active:bg-white/20 transition-colors"
+                  aria-label="Anterior móvil"
+                >
+                  <ChevronLeft className="h-8 w-8 text-white" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="p-4 bg-white/10 rounded-full active:bg-white/20 transition-colors"
+                  aria-label="Siguiente móvil"
+                >
+                  <ChevronRight className="h-8 w-8 text-white" />
+                </button>
               </div>
             </div>
           </div>
 
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 hidden md:block"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 z-[110]"
+            aria-label="Siguiente"
           >
-            <ChevronRight className="h-12 w-12" />
+            <ChevronRight className="h-10 w-10 md:h-12 md:w-12" />
           </button>
         </div>
       )}

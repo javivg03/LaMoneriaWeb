@@ -14,7 +14,7 @@ export default function Footer() {
                 <div className="text-sm text-muted-foreground">
                   <p>Avda. de Andalucía, 19</p>
                   <p>Aldea Las Delgadas</p>
-                  <p>Minas de Riotinto (Huelva)</p>
+                  <p>21640 Zalamea la Real (Huelva)</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">

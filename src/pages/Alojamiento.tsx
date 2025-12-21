@@ -26,8 +26,8 @@ export default function Alojamiento() {
             Nuestra vivienda rural de lujo
           </h1>
           <p className="text-xl opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Una espectacular vivienda para 8 personas en la Aldea Las Delgadas,
-            junto a las famosas Minas de Riotinto en Huelva
+            Una espectacular vivienda para 8 personas en la Aldea Las Delgadas (Zalamea la Real),
+            frente a las famosas Minas de Riotinto en Huelva
           </p>
         </div>
       </section>
@@ -85,7 +85,7 @@ export default function Alojamiento() {
                 <div className="space-y-3 mb-6">
                   <p className="flex items-center space-x-3">
                     <HomeIcon className="h-5 w-5 text-primary" />
-                    <span>Avda. de Andalucía, 19, Aldea Las Delgadas, Minas de Riotinto (Huelva)</span>
+                    <span>Avda. de Andalucía, 19, Aldea Las Delgadas, 21640 Zalamea la Real (Huelva)</span>
                   </p>
                   <p className="flex items-center space-x-3">
                     <Phone className="h-5 w-5 text-primary" />

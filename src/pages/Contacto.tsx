@@ -21,14 +21,23 @@ export default function Contacto() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Create WhatsApp message
+
+    // Basic validation
+    const phoneRegex = /^[0-9+ \-]{9,15}$/;
+    if (!phoneRegex.test(formData.telefono)) {
+      alert("Por favor, introduce un número de teléfono válido.");
+      return;
+    }
+
+    // Create WhatsApp message with compatible icons/spacing
     const message = `Hola! Me interesa reservar en La Monería:
-📅 Entrada: ${formData.fechaEntrada}
-📅 Salida: ${formData.fechaSalida}
-👥 Huéspedes: ${formData.huespedes}
-📞 Teléfono: ${formData.telefono}
-✉️ Email: ${formData.email}
-💬 Mensaje: ${formData.mensaje}`;
+Nombre: ${formData.nombre}
+Entrada: ${formData.fechaEntrada}
+Salida: ${formData.fechaSalida}
+Huéspedes: ${formData.huespedes}
+Teléfono: ${formData.telefono}
+Email: ${formData.email}
+Mensaje: ${formData.mensaje}`;
 
     const whatsappUrl = `https://wa.me/34654873176?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -206,7 +215,7 @@ export default function Contacto() {
                         <p className="text-muted-foreground">
                           Avda. de Andalucía, 19<br />
                           Aldea Las Delgadas<br />
-                          Minas de Riotinto (Huelva)
+                          21640 Zalamea la Real (Huelva)
                         </p>
                       </div>
                     </div>
