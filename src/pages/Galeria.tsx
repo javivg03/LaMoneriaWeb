@@ -194,61 +194,75 @@ export default function Galeria() {
 
       {/* Lightbox Modal */}
       {selectedIndex !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8">
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8"
+          onClick={() => setSelectedIndex(null)}
+        >
+          {/* Close Button - Larger tap target and better contrast */}
           <button
-            onClick={() => setSelectedIndex(null)}
-            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2"
+            onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-3 bg-white/10 rounded-full z-[120]"
+            aria-label="Cerrar"
           >
             <X className="h-8 w-8" />
           </button>
 
+          {/* Desktop Side Navigation - Hidden on mobile to avoid overlap */}
           <button
-            onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 z-[110]"
+            onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-4 z-[110] hidden md:block"
             aria-label="Anterior"
           >
-            <ChevronLeft className="h-10 w-10 md:h-12 md:w-12" />
+            <ChevronLeft className="h-12 w-12" />
           </button>
 
-          <div className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center p-4">
-            <img
-              src={galleryImages[selectedIndex].src}
-              alt={galleryImages[selectedIndex].alt}
-              className="max-h-[70vh] md:max-h-[80vh] w-auto animate-in zoom-in-95 duration-300"
-            />
-            <div className="mt-6 text-center text-white">
+          <div
+            className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Fixed height container for the image to prevent UI jumping */}
+            <div className="w-full h-[55vh] md:h-[75vh] flex items-center justify-center">
+              <img
+                src={galleryImages[selectedIndex].src}
+                alt={galleryImages[selectedIndex].alt}
+                className="max-h-full max-w-full object-contain shadow-2xl animate-in zoom-in-95 duration-300"
+              />
+            </div>
+
+            <div className="mt-8 text-center text-white">
               <h3 className="font-serif text-xl md:text-2xl font-semibold mb-1">
                 {galleryImages[selectedIndex].alt}
               </h3>
               <p className="text-white/60 uppercase tracking-widest text-xs md:text-sm font-medium">
                 {galleryImages[selectedIndex].category}
               </p>
-              {/* Mobile controls */}
-              <div className="mt-6 flex gap-12 md:hidden">
+
+              {/* Mobile controls - Consolidated below the image for better reach */}
+              <div className="mt-10 flex gap-16 md:hidden justify-center items-center">
                 <button
-                  onClick={handlePrev}
-                  className="p-4 bg-white/10 rounded-full active:bg-white/20 transition-colors"
+                  onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                  className="p-5 bg-white/15 rounded-full active:bg-white/30 transition-colors"
                   aria-label="Anterior móvil"
                 >
-                  <ChevronLeft className="h-8 w-8 text-white" />
+                  <ChevronLeft className="h-10 w-10 text-white" />
                 </button>
                 <button
-                  onClick={handleNext}
-                  className="p-4 bg-white/10 rounded-full active:bg-white/20 transition-colors"
+                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                  className="p-5 bg-white/15 rounded-full active:bg-white/30 transition-colors"
                   aria-label="Siguiente móvil"
                 >
-                  <ChevronRight className="h-8 w-8 text-white" />
+                  <ChevronRight className="h-10 w-10 text-white" />
                 </button>
               </div>
             </div>
           </div>
 
           <button
-            onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 z-[110]"
+            onClick={(e) => { e.stopPropagation(); handleNext(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-4 z-[110] hidden md:block"
             aria-label="Siguiente"
           >
-            <ChevronRight className="h-10 w-10 md:h-12 md:w-12" />
+            <ChevronRight className="h-12 w-12" />
           </button>
         </div>
       )}
