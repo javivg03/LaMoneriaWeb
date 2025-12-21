@@ -1,6 +1,9 @@
 import { Flame, Snowflake, Utensils, Bed, Wifi, Waves, TreePine, Users, Wrench } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import Layout from '@/components/Layout/Layout';
+import bbqImage from '@/assets/exterior_barbacoa_antigua.jpg';
+import poolImage from '@/assets/exterior_piscina_detalle.jpeg';
+import interiorImage from '@/assets/salon_chimenea.jpeg';
 
 export default function Servicios() {
   const services = [
@@ -47,16 +50,18 @@ export default function Servicios() {
       description="Descubre todos los servicios incluidos en La Monería: climatización, chimenea, piscina salina, cocina equipada, jardín y mucho más. Confort rural de lujo."
     >
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-earth">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-foreground">
-              Servicios y comodidades
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Todo lo necesario para una estancia perfecta en el corazón de la Cuenca Minera de Huelva
-            </p>
-          </div>
+      <section className="relative h-[40vh] flex items-center justify-center text-white">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bbqImage})` }}
+        />
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6">
+            Servicios y comodidades
+          </h1>
+          <p className="text-xl opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
+            Todo lo necesario para una estancia perfecta en el corazón de la Cuenca Minera de Huelva
+          </p>
         </div>
       </section>
 

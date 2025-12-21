@@ -2,6 +2,7 @@ import { Mountain, Camera, TreePine, Compass, Castle, Waves, Wine, MapPin } from
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/Layout/Layout';
+import rioTinto from '@/assets/entorno_rio_tinto.jpg';
 
 export default function Entorno() {
   const attractions = [
@@ -55,18 +56,19 @@ export default function Entorno() {
       description="Descubre el entorno único de La Monería: Río Tinto estudiado por la NASA, Minas de Riotinto, Parque Natural Sierra de Aracena, Gruta de las Maravillas y mucho más."
     >
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-hero text-white relative">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Un entorno único en el mundo
-            </h1>
-            <p className="text-xl mb-8 opacity-90 leading-relaxed">
-              Descubre la fascinante Cuenca Minera de Huelva, donde el Río Tinto
-              crea paisajes estudiados por la NASA como análogo terrestre de Marte
-            </p>
-          </div>
+      <section className="relative h-[60vh] flex items-center justify-center text-white overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${rioTinto})` }}
+        />
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            Un entorno único en el mundo
+          </h1>
+          <p className="text-xl mb-8 opacity-90 leading-relaxed max-w-3xl mx-auto">
+            Descubre la fascinante Cuenca Minera de Huelva, donde el Río Tinto
+            crea paisajes estudiados por la NASA como análogo terrestre de Marte
+          </p>
         </div>
       </section>
 

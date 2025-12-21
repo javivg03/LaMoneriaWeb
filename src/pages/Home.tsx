@@ -1,7 +1,9 @@
 import { Phone, MessageCircle, Users, Bed, MapPin, Star, Calendar, Euro } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import heroImage from '@/assets/hero-image.jpg';
+import heroImage from '@/assets/exterior_porche_relax.jpg';
+import roomImage from '@/assets/habitacion_principal_cama.jpg';
+import patioImage from '@/assets/porche_vista_general.jpeg';
 
 export default function Home() {
   return (
@@ -9,13 +11,14 @@ export default function Home() {
       {/* Hero Section */}
       <section
         className="relative min-h-[80vh] flex items-center justify-center text-white bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${heroImage})` }}
+        style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.3) 100%), url(${heroImage})` }}
       >
+        <link rel="preload" as="image" href={heroImage} />
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
             Vivienda Rural <span className="text-primary-glow">La Monería</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-100 font-medium drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
             Alojamiento de lujo en plena naturaleza junto al mítico Río Tinto,
             en el corazón de la Cuenca Minera de Huelva
           </p>
@@ -80,7 +83,13 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="order-2 lg:order-1">
+              <div className="grid grid-cols-2 gap-4">
+                <img src={patioImage} alt="Porche de La Monería" className="rounded-xl shadow-lg w-full h-64 object-cover" loading="lazy" />
+                <img src={roomImage} alt="Habitación principal" className="rounded-xl shadow-lg w-full h-64 object-cover mt-8" loading="lazy" />
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
               <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6 text-foreground">
                 Una experiencia única en la historia minera de España
               </h2>

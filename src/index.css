@@ -64,9 +64,7 @@
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s ease-out;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -98,16 +96,18 @@
   .btn-hero {
     @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground;
     @apply px-8 py-4 rounded-lg font-semibold tracking-wide;
-    @apply shadow-[var(--shadow-button)] hover:shadow-[var(--shadow-warm)];
-    @apply transform hover:scale-105 transition-[var(--transition-smooth)];
+    @apply shadow-button hover:shadow-warm;
+    @apply transform hover:scale-105;
+    transition: var(--transition-smooth);
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
   }
 
   /* Elegant card component */
   .card-elegant {
     @apply bg-card/80 backdrop-blur-sm border border-border/50;
-    @apply rounded-xl shadow-[var(--shadow-card)];
-    @apply transition-[var(--transition-smooth)] hover:shadow-[var(--shadow-warm)];
+    @apply rounded-xl shadow-card;
+    @apply hover:shadow-warm;
+    transition: var(--transition-smooth);
   }
 
   /* Section with warm background */
