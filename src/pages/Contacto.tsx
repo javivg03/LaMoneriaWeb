@@ -22,25 +22,27 @@ export default function Contacto() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
-    const phoneRegex = /^[0-9+ \-]{9,15}$/;
-    if (!phoneRegex.test(formData.telefono)) {
-      alert("Por favor, introduce un número de teléfono válido.");
-      return;
-    }
+    // Create Email message
+    const subject = `Consulta de Reserva - La Monería (${formData.nombre})`;
+    const body = `Hola! Me interesa reservar en La Monería:
 
-    // Create WhatsApp message with compatible icons/spacing
-    const message = `Hola! Me interesa reservar en La Monería:
 Nombre: ${formData.nombre}
+Email: ${formData.email}
+Teléfono: ${formData.telefono}
+
+Detalles de la reserva:
 Entrada: ${formData.fechaEntrada}
 Salida: ${formData.fechaSalida}
 Huéspedes: ${formData.huespedes}
-Teléfono: ${formData.telefono}
-Email: ${formData.email}
-Mensaje: ${formData.mensaje}`;
 
-    const whatsappUrl = `https://wa.me/34654873176?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+Mensaje:
+${formData.mensaje}
+
+---
+Consulta enviada desde la web La Monería.`;
+
+    const mailtoUrl = `mailto:agarcia1619@icahuelva.es?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
   };
 
   return (
@@ -74,9 +76,9 @@ Mensaje: ${formData.mensaje}`;
                   </h2>
                   <div className="bg-ochre-light border border-ochre/20 rounded-lg p-4 mb-6">
                     <p className="text-sm text-ochre-foreground">
-                      <strong>Importante:</strong> No realizamos reservas online.
-                      Este formulario es solo para consultas. La disponibilidad se confirma
-                      exclusivamente por teléfono llamando al 654 873 176.
+                      <strong>Importante:</strong> Este formulario enviará tu consulta por correo electrónico.
+                      No realizamos reservas online directas; la disponibilidad se confirma
+                      siempre por teléfono llamando al 654 873 176.
                     </p>
                   </div>
 
@@ -166,8 +168,8 @@ Mensaje: ${formData.mensaje}`;
                     </div>
 
                     <Button type="submit" className="btn-hero w-full">
-                      <Send className="h-4 w-4 mr-2" />
-                      Enviar consulta por WhatsApp
+                      <Mail className="h-4 w-4 mr-2" />
+                      Enviar consulta por Email
                     </Button>
                   </form>
                 </CardContent>

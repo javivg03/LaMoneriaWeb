@@ -10,7 +10,6 @@ const navigation = [
   { name: 'Entorno', href: '/entorno' },
   { name: 'Galería', href: '/galeria' },
   { name: 'Cómo llegar', href: '/como-llegar' },
-  { name: 'Contacto', href: '/contacto' },
 ];
 
 export default function Header() {
