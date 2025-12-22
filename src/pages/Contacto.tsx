@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { Phone, MessageCircle, Mail, MapPin, Clock, Send } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Phone, MessageCircle, Mail, MapPin, Clock, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { format, addDays, isBefore, startOfDay } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,41 +12,74 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Layout from '@/components/Layout/Layout';
 
+// Form validation schema
+const contactSchema = z.object({
+  nombre: z.string().min(2, 'El nombre es demasiado corto'),
+  email: z.string().email('Email no válido'),
+  telefono: z.string().min(9, 'Teléfono debe tener al menos 9 dígitos'),
+  fechaEntrada: z.string().refine((val) => {
+    const date = new Date(val);
+    const today = startOfDay(new Date());
+    return !isBefore(date, today);
+  }, 'La fecha de entrada no puede ser pasada'),
+  fechaSalida: z.string(),
+  huespedes: z.string().min(1, 'Selecciona el número de huéspedes'),
+  mensaje: z.string().min(10, 'El mensaje debe ser más detallado (mín. 10 carácteres)')
+}).refine((data) => {
+  const entrada = new Date(data.fechaEntrada);
+  const salida = new Date(data.fechaSalida);
+  const minSalida = addDays(entrada, 2);
+  return !isBefore(salida, minSalida);
+}, {
+  message: "La estancia mínima es de 2 noches",
+  path: ["fechaSalida"]
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 export default function Contacto() {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    fechaEntrada: '',
-    fechaSalida: '',
-    huespedes: '',
-    mensaje: ''
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors }
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      huespedes: "2",
+      fechaEntrada: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
+      fechaSalida: format(addDays(new Date(), 3), 'yyyy-MM-dd'),
+    }
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: ContactFormData) => {
+    setStatus('submitting');
+    try {
+      const response = await fetch('https://formspree.io/f/mqakovge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          ...data,
+          _subject: `Nueva reserva - ${data.nombre}`,
+          _replyto: data.email
+        })
+      });
 
-    // Create Email message
-    const subject = `Consulta de Reserva - La Monería (${formData.nombre})`;
-    const body = `Hola! Me interesa reservar en La Monería:
-
-Nombre: ${formData.nombre}
-Email: ${formData.email}
-Teléfono: ${formData.telefono}
-
-Detalles de la reserva:
-Entrada: ${formData.fechaEntrada}
-Salida: ${formData.fechaSalida}
-Huéspedes: ${formData.huespedes}
-
-Mensaje:
-${formData.mensaje}
-
----
-Consulta enviada desde la web La Monería.`;
-
-    const mailtoUrl = `mailto:agarcia1619@icahuelva.es?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -71,107 +108,144 @@ Consulta enviada desde la web La Monería.`;
             <div>
               <Card className="card-elegant">
                 <CardContent className="p-6">
-                  <h2 className="font-serif text-2xl font-semibold mb-6 text-foreground">
-                    Solicitar información
-                  </h2>
-                  <div className="bg-ochre-light border border-ochre/20 rounded-lg p-4 mb-6">
-                    <p className="text-sm text-ochre-foreground">
-                      <strong>Importante:</strong> Este formulario enviará tu consulta por correo electrónico.
-                      No realizamos reservas online directas; la disponibilidad se confirma
-                      siempre por teléfono llamando al 654 873 176.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="nombre">Nombre completo *</Label>
-                        <Input
-                          id="nombre"
-                          type="text"
-                          required
-                          value={formData.nombre}
-                          onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="telefono">Teléfono *</Label>
-                        <Input
-                          id="telefono"
-                          type="tel"
-                          required
-                          value={formData.telefono}
-                          onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                        />
-                      </div>
+                  {status === 'success' ? (
+                    <div className="text-center py-12">
+                      <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-4" />
+                      <h2 className="text-2xl font-serif font-bold mb-4">¡Mensaje enviado!</h2>
+                      <p className="text-muted-foreground mb-8">
+                        Gracias por tu interés. Hemos recibido tu consulta y te responderemos lo antes posible por email.
+                      </p>
+                      <Button onClick={() => setStatus('idle')} variant="outline">
+                        Enviar otro mensaje
+                      </Button>
                     </div>
+                  ) : (
+                    <>
+                      <h2 className="font-serif text-2xl font-semibold mb-6 text-foreground">
+                        Solicitar información
+                      </h2>
 
-                    <div>
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
-                    </div>
+                      {status === 'error' && (
+                        <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4 mb-6 flex items-center">
+                          <AlertCircle className="h-5 w-5 mr-3 flex-shrink-0" />
+                          <p className="text-sm">Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo o llámanos directamente.</p>
+                        </div>
+                      )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div>
-                        <Label htmlFor="fechaEntrada">Fecha de entrada</Label>
-                        <Input
-                          id="fechaEntrada"
-                          type="date"
-                          value={formData.fechaEntrada}
-                          onChange={(e) => setFormData({ ...formData, fechaEntrada: e.target.value })}
-                        />
+                      <div className="bg-ochre-light border border-ochre/20 rounded-lg p-4 mb-6">
+                        <p className="text-sm text-ochre-foreground">
+                          <strong>Importante:</strong> Este formulario enviará tu consulta directamente a los propietarios.
+                          No es una reserva inmediata; confirmamos disponibilidad
+                          siempre por teléfono llamando al 654 873 176.
+                        </p>
                       </div>
-                      <div>
-                        <Label htmlFor="fechaSalida">Fecha de salida</Label>
-                        <Input
-                          id="fechaSalida"
-                          type="date"
-                          value={formData.fechaSalida}
-                          onChange={(e) => setFormData({ ...formData, fechaSalida: e.target.value })}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="huespedes">Huéspedes</Label>
-                        <Select value={formData.huespedes} onValueChange={(value) => setFormData({ ...formData, huespedes: value })}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Seleccionar" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="1">1 persona</SelectItem>
-                            <SelectItem value="2">2 personas</SelectItem>
-                            <SelectItem value="3">3 personas</SelectItem>
-                            <SelectItem value="4">4 personas</SelectItem>
-                            <SelectItem value="5">5 personas</SelectItem>
-                            <SelectItem value="6">6 personas</SelectItem>
-                            <SelectItem value="7">7 personas</SelectItem>
-                            <SelectItem value="8">8 personas</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
 
-                    <div>
-                      <Label htmlFor="mensaje">Mensaje</Label>
-                      <Textarea
-                        id="mensaje"
-                        rows={4}
-                        placeholder="Cuéntanos sobre tu estancia, necesidades especiales, preguntas..."
-                        value={formData.mensaje}
-                        onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
-                      />
-                    </div>
+                      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="nombre">Nombre completo *</Label>
+                            <Input
+                              id="nombre"
+                              {...register('nombre')}
+                              className={errors.nombre ? 'border-destructive' : ''}
+                            />
+                            {errors.nombre && <p className="text-xs text-destructive">{errors.nombre.message}</p>}
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="telefono">Teléfono *</Label>
+                            <Input
+                              id="telefono"
+                              type="tel"
+                              {...register('telefono')}
+                              className={errors.telefono ? 'border-destructive' : ''}
+                            />
+                            {errors.telefono && <p className="text-xs text-destructive">{errors.telefono.message}</p>}
+                          </div>
+                        </div>
 
-                    <Button type="submit" className="btn-hero w-full">
-                      <Mail className="h-4 w-4 mr-2" />
-                      Enviar consulta por Email
-                    </Button>
-                  </form>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            {...register('email')}
+                            className={errors.email ? 'border-destructive' : ''}
+                          />
+                          {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="fechaEntrada">Fecha de entrada</Label>
+                            <Input
+                              id="fechaEntrada"
+                              type="date"
+                              {...register('fechaEntrada')}
+                              className={errors.fechaEntrada ? 'border-destructive' : ''}
+                            />
+                            {errors.fechaEntrada && <p className="text-xs text-destructive">{errors.fechaEntrada.message}</p>}
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="fechaSalida">Fecha de salida</Label>
+                            <Input
+                              id="fechaSalida"
+                              type="date"
+                              {...register('fechaSalida')}
+                              className={errors.fechaSalida ? 'border-destructive' : ''}
+                            />
+                            {errors.fechaSalida && <p className="text-xs text-destructive">{errors.fechaSalida.message}</p>}
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="huespedes">Huéspedes</Label>
+                            <Select
+                              onValueChange={(value) => setValue('huespedes', value)}
+                              defaultValue="2"
+                            >
+                              <SelectTrigger>
+                                <SelectValue placeholder="Seleccionar" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+                                  <SelectItem key={n} value={n.toString()}>{n} {n === 1 ? 'persona' : 'personas'}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            {errors.huespedes && <p className="text-xs text-destructive">{errors.huespedes.message}</p>}
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="mensaje">Mensaje *</Label>
+                          <Textarea
+                            id="mensaje"
+                            rows={4}
+                            placeholder="Cuéntanos sobre tu estancia, necesidades especiales..."
+                            {...register('mensaje')}
+                            className={errors.mensaje ? 'border-destructive' : ''}
+                          />
+                          {errors.mensaje && <p className="text-xs text-destructive">{errors.mensaje.message}</p>}
+                        </div>
+
+                        <Button
+                          type="submit"
+                          className="btn-hero w-full"
+                          disabled={status === 'submitting'}
+                        >
+                          {status === 'submitting' ? (
+                            <>
+                              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                              Enviando...
+                            </>
+                          ) : (
+                            <>
+                              <Mail className="h-4 w-4 mr-2" />
+                              Enviar consulta directa
+                            </>
+                          )}
+                        </Button>
+                      </form>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             </div>
