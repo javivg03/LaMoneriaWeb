@@ -69,7 +69,7 @@ export default function Alojamiento() {
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   Nuestra vivienda rural está inscrita en el Registro de Turismo de Andalucía con
                   el número VTAR/HU/00392. Ofrecemos alojamiento de alquiler completo con estancia
-                  mínima de 2 noches y capacidad para 8 personas. El precio es de 250 €/noche.
+                  mínima de 2 noches y capacidad para 8 personas. El precio es desde 250 €/noche.
                 </p>
 
                 <p className="text-muted-foreground mb-8 leading-relaxed">
@@ -173,7 +173,7 @@ export default function Alojamiento() {
 
                   <div className="mt-8 pt-6 border-t border-border">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-primary mb-2">250€</p>
+                      <p className="text-2xl font-bold text-primary mb-2">desde 250€</p>
                       <p className="text-sm text-muted-foreground mb-4">por noche (mín. 2 noches)</p>
                       <p className="text-xs text-muted-foreground">RTA: VTAR/HU/00392</p>
                     </div>

@@ -259,7 +259,7 @@ Mensaje: ${formData.mensaje}`;
                     <p className="text-sm text-muted-foreground">
                       RTA: VTAR/HU/00392<br />
                       Estancia mínima: 2 noches<br />
-                      Precio desde: 250€/noche
+                      Precio desde 250€/noche
                     </p>
                   </div>
                 </CardContent>
