@@ -15,7 +15,7 @@ Bienvenido al repositorio oficial de **Vivienda Rural La Monería**. Esta es una
 
 1. **Clonar el repositorio**:
    ```bash
-   git clone <url-del-repo>
+   git clone https://github.com/javivg03/LaMoneriaWeb
    cd ViviendaRuralLaMoneria
    ```
 
